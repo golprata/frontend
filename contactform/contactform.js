@@ -92,20 +92,20 @@ jQuery(document).ready(function($) {
     else var str = $(this).serialize();
     $.ajax({
       type: "POST",
+      crossDomain: true,
       url: "http://localhost:3000/contato",
       data: str,
-      success: function(msg) {
-        // alert(msg);
-        if (msg == 'OK') {
+      success: function(res) {
+        
+        if (res.msg == 'OK') {
+          console.log(res.msg);
           $("#sendmessage").addClass("show");
           $("#errormessage").removeClass("show");
           $('.contactForm').find("input, textarea").val("");
         } else {
           $("#sendmessage").removeClass("show");
           $("#errormessage").addClass("show");
-          $('#errormessage').html(msg);
-          console.log(msg);
-          
+          $('#errormessage').html(res.msg);
         }
 
       }
